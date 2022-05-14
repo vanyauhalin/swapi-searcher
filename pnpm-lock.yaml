@@ -4,6 +4,9 @@ specifiers:
   '@arkweid/lefthook': ^0.7.7
   '@commitlint/cli': ^16.3.0
   '@commitlint/config-conventional': ^16.2.4
+  '@types/node': ^17.0.33
+  '@types/react': ^18.0.9
+  '@types/react-dom': ^18.0.4
   '@vanyauhalin/eslint-config-react': ^0.9.0
   eslint: ^8.15.0
   typescript: ^4.6.4
@@ -12,6 +15,9 @@ devDependencies:
   '@arkweid/lefthook': 0.7.7
   '@commitlint/cli': 16.3.0
   '@commitlint/config-conventional': 16.2.4
+  '@types/node': 17.0.33
+  '@types/react': 18.0.9
+  '@types/react-dom': 18.0.4
   '@vanyauhalin/eslint-config-react': 0.9.0_hcfsmds2fshutdssjqluwm76uu
   eslint: 8.15.0
   typescript: 4.6.4
@@ -326,6 +332,28 @@ packages:
     resolution: {integrity: sha512-//oorEZjL6sbPcKUaCdIGlIUeH26mgzimjBB77G6XRgnDl/L5wOnpyBGRe/Mmf5CVW3PwEBE1NjiMZ/ssFh4wA==}
     dev: true
 
+  /@types/prop-types/15.7.5:
+    resolution: {integrity: sha512-JCB8C6SnDoQf0cNycqd/35A7MjcnK+ZTqE7judS6o7utxUCg6imJg3QK2qzHKszlTjcj2cn+NwMB2i96ubpj7w==}
+    dev: true
+
+  /@types/react-dom/18.0.4:
+    resolution: {integrity: sha512-FgTtbqPOCI3dzZPZoC2T/sx3L34qxy99ITWn4eoSA95qPyXDMH0ALoAqUp49ITniiJFsXUVBtalh/KffMpg21Q==}
+    dependencies:
+      '@types/react': 18.0.9
+    dev: true
+
+  /@types/react/18.0.9:
+    resolution: {integrity: sha512-9bjbg1hJHUm4De19L1cHiW0Jvx3geel6Qczhjd0qY5VKVE2X5+x77YxAepuCwVh4vrgZJdgEJw48zrhRIeF4Nw==}
+    dependencies:
+      '@types/prop-types': 15.7.5
+      '@types/scheduler': 0.16.2
+      csstype: 3.0.11
+    dev: true
+
+  /@types/scheduler/0.16.2:
+    resolution: {integrity: sha512-hppQEBDmlwhFAXKJX2KnWLYu5yMfi91yazPb2l+lbJiwW+wdo1gNeRA+3RgNSO39WYX2euey41KEwnqesU2Jew==}
+    dev: true
+
   /@typescript-eslint/eslint-plugin/5.23.0_c63nfttrfhylg3zmgcxfslaw44:
     resolution: {integrity: sha512-hEcSmG4XodSLiAp1uxv/OQSGsDY6QN3TcRU32gANp+19wGE1QQZLRS8/GV58VRUoXhnkuJ3ZxNQ3T6Z6zM59DA==}
     engines: {node: ^12.22.0 || ^14.17.0 || >=16.0.0}
@@ -454,6 +482,7 @@ packages:
 
   /@vanyauhalin/eslint-config-base/0.9.0_doddzorl55y6dbr5ij3nshfl64:
     resolution: {integrity: sha512-YSpXSwl23u4Q9Wew0WQ4HwpH97aV0oQcG0U1CT/FUsImvIpgLrpXZLIWRMavARNiJh9V5MAhKN/sdAb7Yq1Bbg==, tarball: download/@vanyauhalin/eslint-config-base/0.9.0/2a8e77221d55e61580e9e7b1c78fd8aa0e6392780d31907ecd1a34bd686c1564}
+    engines: {node: '>=12', pnpm: '>=4'}
     peerDependencies:
       eslint: ^7.32.0 || ^8.0.0
     dependencies:
@@ -469,6 +498,7 @@ packages:
 
   /@vanyauhalin/eslint-config-react/0.9.0_hcfsmds2fshutdssjqluwm76uu:
     resolution: {integrity: sha512-BEbdi3bQaMIe3g4kdbeyFmZmnqD0qd826s+zIBC6Zt1X5Nz+/vb7Yj60GpUIXKhnPGcEyjU+kTzH9qiIvTqAvQ==, tarball: download/@vanyauhalin/eslint-config-react/0.9.0/d1435cadaac5e50001db4929960e1e3865f494d7830736173ad7bf78ef48bd86}
+    engines: {node: '>=12', pnpm: '>=4'}
     peerDependencies:
       eslint: ^7.32.0 || ^8.0.0
       typescript: ^4.0.0
@@ -492,6 +522,7 @@ packages:
 
   /@vanyauhalin/eslint-config-typescript/0.9.0_hcfsmds2fshutdssjqluwm76uu:
     resolution: {integrity: sha512-mfDiwVdWK1nQjD94xmdBnCG+6corTg6EaJjNXoFGRkl+dUHSTD8NbGI7u/wWD3lT+RyJjfAJES/h5YoHmPuXFQ==, tarball: download/@vanyauhalin/eslint-config-typescript/0.9.0/184386e2011913f0302596a45ceb22c1ca38611433cea316f1eb29482648dc69}
+    engines: {node: '>=12', pnpm: '>=4'}
     peerDependencies:
       eslint: ^7.32.0 || ^8.0.0
       typescript: ^4.0.0
@@ -816,6 +847,10 @@ packages:
       path-key: 3.1.1
       shebang-command: 2.0.0
       which: 2.0.2
+    dev: true
+
+  /csstype/3.0.11:
+    resolution: {integrity: sha512-sa6P2wJ+CAbgyy4KFssIb/JNMLxFvKF1pCYCSXS8ZMuqZnMsrxqI2E5sPyoTpxoPU/gVZMzr2zjOfg8GIZOMsw==}
     dev: true
 
   /damerau-levenshtein/1.0.8:
