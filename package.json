@@ -5,6 +5,10 @@
   "repository": "github:vanyauhalin/swapi-searcher",
   "author": "Ivan Uhalin <vanyauhalin@gmail.com>",
   "type": "module",
+  "dependencies": {
+    "react": "^18.1.0",
+    "react-dom": "^18.1.0"
+  },
   "devDependencies": {
     "@arkweid/lefthook": "^0.7.7",
     "@commitlint/cli": "^16.3.0",
