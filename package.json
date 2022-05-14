@@ -5,6 +5,9 @@
   "repository": "github:vanyauhalin/swapi-searcher",
   "author": "Ivan Uhalin <vanyauhalin@gmail.com>",
   "type": "module",
+  "scripts": {
+    "serve": "vite"
+  },
   "dependencies": {
     "react": "^18.1.0",
     "react-dom": "^18.1.0"
