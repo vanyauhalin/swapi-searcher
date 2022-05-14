@@ -13,6 +13,8 @@
     "@arkweid/lefthook": "^0.7.7",
     "@commitlint/cli": "^16.3.0",
     "@commitlint/config-conventional": "^16.2.4",
+    "@vanyauhalin/eslint-config-react": "^0.9.0",
+    "eslint": "^8.15.0",
     "typescript": "^4.6.4"
   }
 }
