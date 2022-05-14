@@ -1,0 +1,12 @@
+{
+  "name": "swapi-searcher",
+  "version": "0.0.0",
+  "private": true,
+  "repository": "github:vanyauhalin/swapi-searcher",
+  "author": "Ivan Uhalin <vanyauhalin@gmail.com>",
+  "type": "module",
+  "engines": {
+    "node": ">=18",
+    "pnpm": ">=7"
+  }
+}
