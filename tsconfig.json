@@ -21,6 +21,11 @@
       "react"
     ],
     "noEmit": true,
+    "plugins": [
+      {
+        "name": "typescript-plugin-css-modules",
+      }
+    ],
     "allowSyntheticDefaultImports": true,
     "esModuleInterop": false,
     "forceConsistentCasingInFileNames": true,
