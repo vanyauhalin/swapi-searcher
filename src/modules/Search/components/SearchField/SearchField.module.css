@@ -1,0 +1,69 @@
+.Field {
+  align-items: center;
+  border-radius: 6px;
+  border: solid 1px hsl(0 0% 70%);
+  display: flex;
+  margin-bottom: 4px;
+  padding: 0 12px;
+}
+
+.SearchIcon {
+  min-width: 1em;
+  min-height: 1em;
+  width: 1em;
+  height: 1em;
+  color: hsl(0 0% 70%);
+}
+
+.Input {
+  width: 100%;
+  box-sizing: border-box;
+  border: none;
+  font-size: 1em;
+  padding: 8px 12px;
+}
+
+.Input::placeholder {
+  color: hsl(0 0% 70%);
+}
+
+.Input:focus-visible {
+  outline: none;
+}
+
+.Input:focus-visible::placeholder {
+  color: transparent;
+}
+
+.Reset {
+  display: none;
+  cursor: pointer;
+  padding: 0;
+  border: 0;
+  background-color: transparent;
+  padding: 0;
+}
+
+.FieldActive .Reset {
+  display: flex;
+}
+
+.ResetIcon {
+  min-width: 1em;
+  min-height: 1em;
+}
+
+.Key {
+  display: block;
+  min-width: 1em;
+  text-align: center;
+  color: hsl(0 0% 70%);
+}
+
+.Input:focus + .Key {
+  display: none;
+}
+
+.FieldActive .Key {
+  margin-right: 12px;
+}

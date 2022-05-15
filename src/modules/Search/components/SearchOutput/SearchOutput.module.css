@@ -1,0 +1,56 @@
+.SearchOutput {
+  position: absolute;
+  background-color: white;
+  display: block;
+  border-radius: 0 0 6px 6px;
+  border: solid 1px hsl(0 0% 70%);
+  padding: 0 12px;
+  border-top: none;
+  margin-top: calc(-8px - 1px);
+}
+
+.SearchOutputLine {
+  margin: calc((-8px - 1px) * -1) 0 0 0;
+  border: none;
+  height: 1px;
+  background-color: hsl(0 0% 70%);
+}
+
+.SearchOutputIcon {
+  min-width: 1em;
+  min-height: 1em;
+  width: 1em;
+  height: 1em;
+  color: hsl(0 0% 70%);
+}
+
+.SearchOutputList {
+  margin: 0;
+  padding: 0;
+}
+
+.SearchOutputItem {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.SearchOutputLink {
+  padding: 6px 12px;
+  width: 100%;
+}
+
+.SearchOutputLink::before {
+  position: absolute;
+  display: block;
+  top: 0;
+  right: -12px;
+  left: -12px;
+  bottom: 0;
+  content: '';
+}
+
+.SearchOutputTag {
+  color: hsl(0 0% 70%);
+  font-size: 0.85em;
+}
