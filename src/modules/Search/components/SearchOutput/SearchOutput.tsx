@@ -4,15 +4,14 @@ import { Portal, SearchIcon } from 'src/components';
 import type { rest } from 'src/plugins';
 import styles from './SearchOutput.module.css';
 
-function SearchOutput({
-  anchor,
-  content,
-  isVisible,
-}: {
+interface SearchOutputProperties {
   anchor: RefObject<HTMLElement>;
   content: Awaited<ReturnType<typeof rest.search>>;
   isVisible: boolean;
-}): JSX.Element | null {
+}
+
+function SearchOutput(properties: SearchOutputProperties): JSX.Element | null {
+  const { anchor, content, isVisible } = properties;
   const output = useRef<HTMLOutputElement>(null);
 
   useEffect(() => {

@@ -1,9 +1,4 @@
-import {
-  createContext,
-  useMemo,
-  useRef,
-  useState,
-} from 'react';
+import { useMemo, useRef, useState } from 'react';
 import { rest } from 'src/plugins';
 import { debounce } from 'src/utils';
 import {
@@ -12,6 +7,7 @@ import {
   SearchResources,
   SearchRoot,
 } from './components';
+import { searchResourceContext, SearchResourceContext } from './context';
 
 const resources = [
   'Film',
@@ -22,20 +18,9 @@ const resources = [
   'Vehicles',
 ];
 
-interface SearchResourceContextInstance {
-  resource: string | undefined;
-  resetResource(): void;
-  setResource(value: string): void;
-}
-const SearchResourceContext = createContext<SearchResourceContextInstance>({
-  resource: undefined,
-  resetResource() {},
-  setResource() {},
-});
-
 function Search(): JSX.Element {
   const fieldReference = useRef<HTMLLabelElement>(null);
-  const [resource, setResource] = useState<string | undefined>(undefined);
+  const [resource, setResource] = useState<string | undefined>();
   const [
     content,
     setContent,
@@ -43,7 +28,7 @@ function Search(): JSX.Element {
   const [isOutputVisible, setIsOutputVisible] = useState(false);
 
   const resetResource = (): void => {
-    setResource(undefined);
+    setResource(searchResourceContext.resource);
     setContent([]);
     setIsOutputVisible(false);
   };
@@ -60,7 +45,7 @@ function Search(): JSX.Element {
       return;
     }
     const result = await rest.search(query);
-    if (result.length) {
+    if (result.length > 0) {
       setContent(result);
       setIsOutputVisible(true);
     }
@@ -87,5 +72,4 @@ function Search(): JSX.Element {
 
 export {
   Search,
-  SearchResourceContext,
 };

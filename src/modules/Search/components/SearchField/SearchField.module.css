@@ -1,26 +1,26 @@
 .Field {
   align-items: center;
-  border-radius: 6px;
   border: solid 1px hsl(0 0% 70%);
+  border-radius: 6px;
   display: flex;
   margin-bottom: 4px;
   padding: 0 12px;
 }
 
 .SearchIcon {
-  min-width: 1em;
-  min-height: 1em;
-  width: 1em;
-  height: 1em;
   color: hsl(0 0% 70%);
+  height: 1em;
+  min-height: 1em;
+  min-width: 1em;
+  width: 1em;
 }
 
 .Input {
-  width: 100%;
-  box-sizing: border-box;
   border: none;
+  box-sizing: border-box;
   font-size: 1em;
   padding: 8px 12px;
+  width: 100%;
 }
 
 .Input::placeholder {
@@ -36,11 +36,10 @@
 }
 
 .Reset {
-  display: none;
-  cursor: pointer;
-  padding: 0;
-  border: 0;
   background-color: transparent;
+  border: 0;
+  cursor: pointer;
+  display: none;
   padding: 0;
 }
 
@@ -49,21 +48,21 @@
 }
 
 .ResetIcon {
-  min-width: 1em;
   min-height: 1em;
+  min-width: 1em;
 }
 
 .Key {
+  color: hsl(0 0% 70%);
   display: block;
   min-width: 1em;
   text-align: center;
-  color: hsl(0 0% 70%);
-}
-
-.Input:focus + .Key {
-  display: none;
 }
 
 .FieldActive .Key {
   margin-right: 12px;
+}
+
+.Input:focus + .Key {
+  display: none;
 }

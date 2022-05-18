@@ -60,7 +60,7 @@ const rest = {
     await Promise.all(Object.entries(rest.resources)
       .map(async ([key, value]) => {
         const data = await value.search(query);
-        if (data.results.length) {
+        if (data.results.length > 0) {
           data.results.some((item) => {
             if (!limits[key as Resources]) return true;
             const id = item.url.match(/^.+\/(\d*)\/$/);

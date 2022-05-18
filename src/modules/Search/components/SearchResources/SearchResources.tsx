@@ -2,11 +2,14 @@ import { useState } from 'react';
 import { SearchResourceContext } from 'src/modules';
 import styles from './SearchResources.module.css';
 
-function SearchResourcesOption({
-  resource,
-}: {
+interface SearchResourcesOptionProperties {
   resource: string;
-}): JSX.Element {
+}
+
+function SearchResourcesOption(
+  properties: SearchResourcesOptionProperties,
+): JSX.Element {
+  const { resource } = properties;
   const [isChecked, setIsChecked] = useState(false);
   return (
     <label className={styles.Option}>
@@ -37,11 +40,12 @@ function SearchResourcesOption({
   );
 }
 
-function SearchResources({
-  resources,
-}: {
+interface SearchResourcesProperties {
   resources: string[];
-}): JSX.Element {
+}
+
+function SearchResources(properties: SearchResourcesProperties): JSX.Element {
+  const { resources } = properties;
   return (
     <fieldset className={styles.Resources}>
       <legend className={styles.Legend}>

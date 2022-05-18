@@ -1,27 +1,27 @@
 .SearchOutput {
-  position: absolute;
-  background-color: white;
-  display: block;
-  border-radius: 0 0 6px 6px;
+  background-color: hsl(0 0% 100%);
   border: solid 1px hsl(0 0% 70%);
-  padding: 0 12px;
+  border-radius: 0 0 6px 6px;
   border-top: none;
+  display: block;
   margin-top: calc(-8px - 1px);
+  padding: 0 12px;
+  position: absolute;
 }
 
 .SearchOutputLine {
-  margin: calc((-8px - 1px) * -1) 0 0 0;
+  background-color: hsl(0 0% 70%);
   border: none;
   height: 1px;
-  background-color: hsl(0 0% 70%);
+  margin: calc((-8px - 1px) * -1) 0 0 0;
 }
 
 .SearchOutputIcon {
-  min-width: 1em;
-  min-height: 1em;
-  width: 1em;
-  height: 1em;
   color: hsl(0 0% 70%);
+  height: 1em;
+  min-height: 1em;
+  min-width: 1em;
+  width: 1em;
 }
 
 .SearchOutputList {
@@ -30,9 +30,9 @@
 }
 
 .SearchOutputItem {
-  position: relative;
-  display: flex;
   align-items: center;
+  display: flex;
+  position: relative;
 }
 
 .SearchOutputLink {
@@ -41,16 +41,16 @@
 }
 
 .SearchOutputLink::before {
-  position: absolute;
-  display: block;
-  top: 0;
-  right: -12px;
-  left: -12px;
   bottom: 0;
   content: '';
+  display: block;
+  left: -12px;
+  position: absolute;
+  right: -12px;
+  top: 0;
 }
 
 .SearchOutputTag {
   color: hsl(0 0% 70%);
-  font-size: 0.85em;
+  font-size: .85em;
 }
