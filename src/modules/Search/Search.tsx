@@ -1,6 +1,7 @@
 import { useMemo, useRef, useState } from 'react';
-import { rest } from 'src/plugins';
+import { swapi } from 'src/plugins';
 import { debounce } from 'src/utils';
+import type { SearchResponse } from 'types/swapi';
 import {
   SearchField,
   SearchOutput,
@@ -21,10 +22,7 @@ const resources = [
 function Search(): JSX.Element {
   const fieldReference = useRef<HTMLLabelElement>(null);
   const [resource, setResource] = useState<string | undefined>();
-  const [
-    content,
-    setContent,
-  ] = useState<Awaited<ReturnType<typeof rest.search>>>([]);
+  const [content, setContent] = useState<SearchResponse | []>([]);
   const [isOutputVisible, setIsOutputVisible] = useState(false);
 
   const resetResource = (): void => {
@@ -44,7 +42,7 @@ function Search(): JSX.Element {
       resetResource();
       return;
     }
-    const result = await rest.search(query);
+    const result = await swapi.search({ query });
     if (result.length > 0) {
       setContent(result);
       setIsOutputVisible(true);

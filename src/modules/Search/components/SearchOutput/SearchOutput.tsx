@@ -1,12 +1,12 @@
 import type { RefObject } from 'react';
-import { useEffect, useRef } from 'react';
+import { Fragment, useEffect, useRef } from 'react';
 import { Portal, SearchIcon } from 'src/components';
-import type { rest } from 'src/plugins';
+import type { SearchResponse } from 'types/swapi';
 import styles from './SearchOutput.module.css';
 
 interface SearchOutputProperties {
   anchor: RefObject<HTMLElement>;
-  content: Awaited<ReturnType<typeof rest.search>>;
+  content: SearchResponse | [];
   isVisible: boolean;
 }
 
@@ -35,19 +35,23 @@ function SearchOutput(properties: SearchOutputProperties): JSX.Element | null {
           >
             <hr className={styles.SearchOutputLine} />
             <ul className={styles.SearchOutputList}>
-              {content.map((item) => (
-                <li
-                  className={styles.SearchOutputItem}
-                  key={`${item.resource}${item.label}`}
-                >
-                  <SearchIcon className={styles.SearchOutputIcon} />
-                  <a
-                    className={styles.SearchOutputLink}
-                    href="/details"
-                  >
-                    {item.label}
-                  </a>
-                </li>
+              {content.map(([key, items]) => (
+                <Fragment key={key}>
+                  {items.map((item) => (
+                    <li
+                      className={styles.SearchOutputItem}
+                      key={item.id}
+                    >
+                      <SearchIcon className={styles.SearchOutputIcon} />
+                      <a
+                        className={styles.SearchOutputLink}
+                        href="/details"
+                      >
+                        {item.name || item.title}
+                      </a>
+                    </li>
+                  ))}
+                </Fragment>
               ))}
             </ul>
           </output>
