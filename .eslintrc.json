@@ -1,0 +1,14 @@
+{
+  "extends": "@vanyauhalin/eslint-config-react",
+  "parserOptions": {
+    "project": "./tsconfig.json"
+  },
+  "overrides": [
+    {
+      "files": "vite.config.js",
+      "rules": {
+        "import/no-default-export": "off"
+      }
+    }
+  ]
+}
