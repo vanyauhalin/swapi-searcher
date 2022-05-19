@@ -1,17 +1,34 @@
-import type { RefObject } from 'react';
-import { Fragment, useEffect, useRef } from 'react';
+import type { PropsWithChildren, RefObject } from 'react';
+import { useEffect, useRef } from 'react';
 import { Portal, SearchIcon } from 'src/components';
-import type { SearchResponse } from 'types/swapi';
 import styles from './SearchOutput.module.css';
 
-interface SearchOutputProperties {
-  anchor: RefObject<HTMLElement>;
-  content: SearchResponse | [];
-  isVisible: boolean;
+interface SearchOutputItemProperties {
+  label: string;
 }
 
+function SearchOutputItem(properties: SearchOutputItemProperties): JSX.Element {
+  const { label } = properties;
+  return (
+    <li className={styles.SearchOutputItem}>
+      <SearchIcon className={styles.SearchOutputIcon} />
+      <a
+        className={styles.SearchOutputLink}
+        href="/details"
+      >
+        {label}
+      </a>
+    </li>
+  );
+}
+
+type SearchOutputProperties = PropsWithChildren<{
+  anchor: RefObject<HTMLElement>;
+  isVisible: boolean;
+}>;
+
 function SearchOutput(properties: SearchOutputProperties): JSX.Element | null {
-  const { anchor, content, isVisible } = properties;
+  const { anchor, children, isVisible } = properties;
   const output = useRef<HTMLOutputElement>(null);
 
   useEffect(() => {
@@ -35,24 +52,7 @@ function SearchOutput(properties: SearchOutputProperties): JSX.Element | null {
           >
             <hr className={styles.SearchOutputLine} />
             <ul className={styles.SearchOutputList}>
-              {content.map(([key, items]) => (
-                <Fragment key={key}>
-                  {items.map((item) => (
-                    <li
-                      className={styles.SearchOutputItem}
-                      key={item.id}
-                    >
-                      <SearchIcon className={styles.SearchOutputIcon} />
-                      <a
-                        className={styles.SearchOutputLink}
-                        href="/details"
-                      >
-                        {item.name || item.title}
-                      </a>
-                    </li>
-                  ))}
-                </Fragment>
-              ))}
+              {children}
             </ul>
           </output>
         </Portal>
@@ -63,4 +63,5 @@ function SearchOutput(properties: SearchOutputProperties): JSX.Element | null {
 
 export {
   SearchOutput,
+  SearchOutputItem,
 };

@@ -5,6 +5,11 @@ import type {
   Rest,
 } from 'types/swapi';
 
+function extractId(url: string): string {
+  const id = url.match(/^.+\/(\d*)\/$/);
+  return id && id[1] ? id[1] : '';
+}
+
 function parse(path: string, context: Record<string, unknown>): string {
   return path.replace(/{([^{}]+)}|([^{}]+)/g, (_, ...arguments_) => {
     const [expression, literal] = arguments_ as (string | undefined)[];
@@ -13,11 +18,6 @@ function parse(path: string, context: Record<string, unknown>): string {
       ? value.replace(/ /g, '%20')
       : value as string;
   });
-}
-
-function extractId(url: string): string {
-  const id = url.match(/^.+\/(\d*)\/$/);
-  return id && id[1] ? id[1] : '';
 }
 
 function define(path: string) {

@@ -11,11 +11,10 @@ function generate(rest: Rest): Search {
     resetLimits();
     const results = [] as unknown[];
     await Promise.all(Object.entries(rest).map(async ([scope, methods]) => {
-      if (!limits[scope]) return true;
+      if (!limits[scope]) return;
       const data = await methods.search(parameters);
       results.push([scope, data.results.slice(0, limits[scope])]);
       limits[scope] = 0;
-      return false;
     }));
     return results as SearchResponse;
   };

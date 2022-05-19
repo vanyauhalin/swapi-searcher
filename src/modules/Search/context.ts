@@ -1,20 +1,15 @@
-import { createContext } from 'react';
-
-interface SearchResourceContextInstance {
-  resource: string | undefined;
-  resetResource(): void;
-  setResource(value: string): void;
+interface SearchContextInstance {
+  scope: string | undefined;
+  resetScope(): void;
+  setScope(scope: string): void;
 }
 
-const searchResourceContext: SearchResourceContextInstance = {
-  resource: undefined,
-  resetResource() {},
-  setResource() {},
+const searchContext: SearchContextInstance = {
+  scope: undefined,
+  resetScope() {},
+  setScope() {},
 };
 
-const SearchResourceContext = createContext(searchResourceContext);
-
 export {
-  searchResourceContext,
-  SearchResourceContext,
+  searchContext,
 };
