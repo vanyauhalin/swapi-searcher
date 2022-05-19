@@ -7,8 +7,9 @@ type ValueOf<T> = T[keyof T];
 declare namespace Swapi {
   interface Search {
     (parameters: RestMethodsParameters['search']): Promise<SearchResponse>;
+    defaults: SearchResponse;
   }
-  type SearchResponse = [[keyof Rest, ValueOf<RestResponse>['search']['results']]];
+  type SearchResponse = RestMethodResponseWrapper<ValueOf<RestResponse>['search']['results'][0]>;
   type Rest = {
     films: {
       get(parameters: RestMethodsParameters['get']): Promise<RestResponse['films']['get']>;
@@ -144,15 +145,15 @@ declare namespace Swapi {
   type RestMethodsResponse<T extends Record<string, unknown>> = {
     [K in keyof T]: {
       get: T[K] & RestMethodResponse;
-      list: RestMethodResponseWrapper<T[K]>;
-      search: RestMethodResponseWrapper<T[K]>;
+      list: RestMethodResponseWrapper<T[K] & RestMethodResponse>;
+      search: RestMethodResponseWrapper<T[K] & RestMethodResponse>;
     }
   };
   type RestMethodResponseWrapper<T> = {
     count: number;
-    next: string;
-    previous: null;
-    results: (T & RestMethodResponse)[] | [];
+    next: string | undefined;
+    previous: null | undefined;
+    results: T[] | [];
   };
   /**
    * It's somewhat wrong to add `name` and `title` to this type, but don't see
@@ -163,6 +164,7 @@ declare namespace Swapi {
     edited: string;
     id: string;
     name?: string;
+    scope: string;
     title?: string;
     url: string;
   };
@@ -180,7 +182,7 @@ declare namespace Swapi {
   /**
    * Not entirely true, because instead of `&` should be `|`.
    */
-  type RequestResponse = RestMethodResponseWrapper<unknown> & RestMethodResponse;
+  type RequestResponse = RestMethodResponseWrapper<RestMethodResponse> & RestMethodResponse;
 }
 
 export = Swapi;

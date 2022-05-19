@@ -3,11 +3,20 @@ import type {
   RequestParameters,
   RequestResponse,
   Rest,
+  RestMethodResponse,
 } from 'types/swapi';
 
 function extractId(url: string): string {
   const id = url.match(/^.+\/(\d*)\/$/);
   return id && id[1] ? id[1] : '';
+}
+
+function extractScope(path: string): string {
+  const matched = path.match(/^([\W\w]*)\/?.*?\//);
+  if (!matched) return '';
+  const [, scope] = matched;
+  if (!scope) return '';
+  return scope;
 }
 
 function parse(path: string, context: Record<string, unknown>): string {
@@ -20,17 +29,22 @@ function parse(path: string, context: Record<string, unknown>): string {
   });
 }
 
-function define(path: string) {
+function define(
+  path: string,
+): (parameters: RequestParameters) => Promise<RequestResponse> {
+  const scope = extractScope(path);
+  function modify(response: RestMethodResponse): void {
+    response.id = extractId(response.url);
+    response.scope = scope;
+  }
   return async (parameters: RequestParameters): Promise<RequestResponse> => {
     const parsed = parse(path, parameters);
     const response = await fetch(`https://swapi.dev/api/${parsed}`);
     const json = await response.json() as RequestResponse;
     if (!json.results) {
-      json.id = extractId(json.url);
-      return json;
-    }
-    if (json.results.length > 0) {
-      for (const item of json.results) item.id = extractId(item.url);
+      modify(json);
+    } else if (json.results.length > 0) {
+      for (const item of json.results) modify(item);
     }
     return json;
   };

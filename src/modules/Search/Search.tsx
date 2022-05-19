@@ -1,4 +1,4 @@
-import { Fragment, useRef, useState } from 'react';
+import { useRef, useState } from 'react';
 import { swapi } from 'src/plugins';
 import { debounce } from 'src/utils';
 import type { SearchResponse } from 'types/swapi';
@@ -10,37 +10,58 @@ import {
   SearchScopes,
   SearchScopesOption,
 } from './components';
-import { searchContext } from './context';
+
+type Scope = keyof typeof swapi.rest | '';
 
 function Search(): JSX.Element {
   const fieldReference = useRef<HTMLLabelElement>(null);
-  const [, setScope] = useState<typeof searchContext['scope']>();
-  const [content, setContent] = useState<SearchResponse | []>([]);
+  const [scope, setScope] = useState<Scope>('');
+  const [output, setOutput] = useState<SearchResponse>(swapi.search.defaults);
   const [isOutputVisible, setIsOutputVisible] = useState(false);
+  const [previousQuery, setPreviousQuery] = useState('');
+
+  function resetOutput(): void {
+    setOutput(swapi.search.defaults);
+    setIsOutputVisible(false);
+  }
 
   const resetScope = (): void => {
-    setScope(searchContext.scope);
-    setContent([]);
-    setIsOutputVisible(false);
+    setScope('');
+    resetOutput();
   };
 
   async function search(query: string): Promise<void> {
-    if (!query) {
-      resetScope();
-      return;
+    const instance = scope ? swapi.rest[scope] : swapi;
+    const searched = await instance.search({ query });
+    if (searched.results.length === 0) return;
+    setOutput(searched);
+    setIsOutputVisible(true);
+  }
+
+  async function handleQuery(query: string): Promise<void> {
+    const hasItems = output.results.length > 0;
+    const trimmed = query.trim();
+
+    if (
+      (previousQuery === trimmed && query.match(/\s*$/)?.[0]?.length !== 0)
+      || (previousQuery && !hasItems && trimmed.length > previousQuery.length)
+      || (!previousQuery && hasItems && !trimmed)
+    ) return;
+
+    if (!trimmed) {
+      resetOutput();
+    } else {
+      await search(trimmed);
     }
-    const searched = await swapi.search({ query });
-    if (searched.length > 0) {
-      setContent(searched);
-      setIsOutputVisible(true);
-    }
+
+    setPreviousQuery(trimmed);
   }
 
   return (
     <SearchRoot>
       <SearchField
         ref={fieldReference}
-        onChange={debounce(search, 150)}
+        onChange={debounce(handleQuery, 300)}
         onReset={resetScope}
       />
       <SearchScopes>
@@ -50,7 +71,9 @@ function Search(): JSX.Element {
             label={humanizedScope}
             value={swapi.scopes.list[index] || humanizedScope.toLowerCase()}
             onReset={resetScope}
-            onSelect={setScope}
+            onSelect={(value: Scope) => {
+              setScope(value);
+            }}
           />
         ))}
       </SearchScopes>
@@ -58,15 +81,11 @@ function Search(): JSX.Element {
         anchor={fieldReference}
         isVisible={isOutputVisible}
       >
-        {content.map(([key, items]) => (
-          <Fragment key={key}>
-            {items.map((item) => (
-              <SearchOutputItem
-                key={item.id}
-                label={item.name || item.title || ''}
-              />
-            ))}
-          </Fragment>
+        {output.results.map((item) => (
+          <SearchOutputItem
+            key={`${item.scope}${item.id}`}
+            label={item.name || item.title || ''}
+          />
         ))}
       </SearchOutput>
     </SearchRoot>
