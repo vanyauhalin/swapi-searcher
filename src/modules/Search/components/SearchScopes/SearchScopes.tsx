@@ -13,28 +13,29 @@ function SearchScopesOption(
   properties: SearchScopesOptionProperties,
 ): JSX.Element {
   const {
-    value,
+    label,
     onReset,
     onSelect,
-    label,
+    value,
   } = properties;
   const [isChecked, setIsChecked] = useState(false);
   return (
     <label className={styles.Option}>
       <input
         className={styles.OptionIndicator}
-        name="resource"
+        name="scope"
         type="radio"
         value={value}
         onChange={(event) => {
+          (event.target as HTMLInputElement).checked = true;
           setIsChecked(true);
           onSelect(event.target.value);
         }}
-        onClick={() => {
-          if (isChecked) {
-            setIsChecked(false);
-            onReset();
-          }
+        onClick={(event) => {
+          if (!isChecked) return;
+          (event.target as HTMLInputElement).checked = false;
+          setIsChecked(false);
+          onReset();
         }}
       />
       <span className={styles.OptionName}>
