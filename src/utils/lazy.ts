@@ -14,7 +14,9 @@ function lazy(path: string): LazyExoticComponent<Component> {
   if (!name) throw new Error(`Component name not in path: ${path}`);
   return defaultLazy(async () => {
     // Omit the type checking, since it's done inside the `React.lazy()`.
-    const module = await import(`/${path}`) as Record<string, Component>;
+    const module = await import(
+      `../../${path}/${name}.tsx`
+    ) as Record<string, Component>;
     const component = module[name] as Component;
     return {
       default: component,
