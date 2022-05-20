@@ -12,7 +12,13 @@
             ]
           }
         ],
-        "selector-class-pattern": "^[A-Z][a-zA-Z0-9]+$"
+        "selector-class-pattern": "^[A-Z][a-zA-Z0-9]+$",
+        "value-keyword-case": [
+          "lower",
+          {
+            "ignoreProperties": "composes"
+          }
+        ]
       }
     }
   ]
