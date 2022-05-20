@@ -1,5 +1,5 @@
 /* Should be moved to App.css */
-.visibility-hidden {
+.VisibilityHidden {
   border: 0;
   clip: rect(0 0 0 0);
   clip-path: inset(100%);
@@ -14,7 +14,7 @@
 }
 
 /* Should be moved to App.css */
-.reset-fieldset {
+.ResetFieldset {
   border: 0;
   margin: 0;
   min-width: 0;
@@ -22,11 +22,11 @@
 }
 
 .Resources {
-  composes: reset-fieldset;
+  composes: ResetFieldset;
 }
 
 .Legend {
-  composes: visibility-hidden;
+  composes: VisibilityHidden;
 }
 
 .Option {
