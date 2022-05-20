@@ -43,7 +43,7 @@ const SearchField = forwardRef<HTMLLabelElement, SearchFieldProperties>(
           : ''}`}
         ref={reference}
       >
-        <SearchIcon className={styles.SearchIcon} />
+        <SearchIcon color="gray" />
         <input
           className={styles.Input}
           placeholder="Search"
@@ -73,7 +73,7 @@ const SearchField = forwardRef<HTMLLabelElement, SearchFieldProperties>(
             onReset();
           }}
         >
-          <XIcon className={styles.ResetIcon} />
+          <XIcon />
         </button>
       </label>
     );

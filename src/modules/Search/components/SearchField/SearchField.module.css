@@ -7,18 +7,10 @@
   padding: 0 12px;
 }
 
-.SearchIcon {
-  color: hsl(0 0% 70%);
-  height: 1em;
-  min-height: 1em;
-  min-width: 1em;
-  width: 1em;
-}
-
 .Input {
   border: none;
-  box-sizing: border-box;
   font-size: 1em;
+  line-height: 20px;
   padding: 8px 12px;
   width: 100%;
 }
@@ -45,11 +37,6 @@
 
 .FieldActive .Reset {
   display: flex;
-}
-
-.ResetIcon {
-  min-height: 1em;
-  min-width: 1em;
 }
 
 .Key {
