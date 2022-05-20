@@ -1,4 +1,4 @@
-import { StrictMode } from 'react';
+import { StrictMode, Suspense } from 'react';
 import { createRoot } from 'react-dom/client';
 import {
   BrowserRouter,
@@ -8,7 +8,23 @@ import {
 import { lazy } from './utils';
 import './App.css';
 
-const Home = lazy('src/pages/Home');
+function Details(): JSX.Element {
+  const Inner = lazy('src/pages/Details');
+  return (
+    <Suspense fallback={<span>loading</span>}>
+      <Inner />
+    </Suspense>
+  );
+}
+
+function Home(): JSX.Element {
+  const Inner = lazy('src/pages/Home');
+  return (
+    <Suspense fallback={<span>loading</span>}>
+      <Inner />
+    </Suspense>
+  );
+}
 
 function App(): JSX.Element {
   return (
@@ -17,6 +33,10 @@ function App(): JSX.Element {
         <Route
           element={<Home />}
           path="/"
+        />
+        <Route
+          element={<Details />}
+          path="/details/:scope/:id"
         />
       </Routes>
     </BrowserRouter>
