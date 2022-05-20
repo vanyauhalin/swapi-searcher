@@ -1,23 +1,25 @@
 import type { PropsWithChildren, RefObject } from 'react';
 import { useEffect, useRef } from 'react';
+import { Link } from 'react-router-dom';
 import { Portal, SearchIcon } from 'src/components';
 import styles from './SearchOutput.module.css';
 
 interface SearchOutputItemProperties {
   label: string;
+  to: string;
 }
 
 function SearchOutputItem(properties: SearchOutputItemProperties): JSX.Element {
-  const { label } = properties;
+  const { label, to } = properties;
   return (
     <li className={styles.SearchOutputItem}>
       <SearchIcon className={styles.SearchOutputIcon} />
-      <a
+      <Link
         className={styles.SearchOutputLink}
-        href="/details"
+        to={to}
       >
         {label}
-      </a>
+      </Link>
     </li>
   );
 }

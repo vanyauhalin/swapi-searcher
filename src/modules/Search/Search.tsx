@@ -85,6 +85,7 @@ function Search(): JSX.Element {
           <SearchOutputItem
             key={`${item.scope}${item.id}`}
             label={item.name || item.title || ''}
+            to={`/details/${item.scope}/${item.id}`}
           />
         ))}
       </SearchOutput>
