@@ -1,7 +1,16 @@
-.layout {
-  align-items: center;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
+.Layout {
+  display: grid;
   min-height: 100vh;
+}
+
+.LayoutHeader {
+  /* LayoutHeader */
+}
+
+.LayoutMain {
+  /* LayoutMain */
+}
+
+.LayoutFooter {
+  /* LayoutFooter */
 }
