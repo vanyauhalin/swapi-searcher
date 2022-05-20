@@ -1,13 +1,14 @@
-import type { PropsWithChildren } from 'react';
+import type { ComponentProps, ReactElement } from 'react';
+import { createElement } from 'react';
+import { merge } from 'src/utils';
 import styles from './SearchRoot.module.css';
 
-function SearchRoot(properties: PropsWithChildren<unknown>): JSX.Element {
-  const { children } = properties;
-  return (
-    <form className={styles.Search}>
-      {children}
-    </form>
-  );
+function SearchRoot(properties: ComponentProps<'form'>): ReactElement {
+  const { className, children } = properties;
+  return createElement('form', {
+    ...properties,
+    className: merge(styles.SearchRoot, className),
+  }, children);
 }
 
 export {
