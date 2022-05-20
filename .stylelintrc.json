@@ -2,7 +2,7 @@
   "extends": "@vanyauhalin/stylelint-config-base",
   "overrides": [
     {
-      "files": "*.module.css",
+      "files": "**/*.module.css",
       "rules": {
         "property-no-unknown": [
           true,
