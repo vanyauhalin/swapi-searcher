@@ -13,7 +13,12 @@ import {
 
 type Scope = keyof typeof swapi.rest | '';
 
-function Search(): JSX.Element {
+interface SearchProperties {
+  className?: string;
+}
+
+function Search(properties: SearchProperties): JSX.Element {
+  const { className } = properties;
   const fieldReference = useRef<HTMLLabelElement>(null);
   const [scope, setScope] = useState<Scope>('');
   const [output, setOutput] = useState<SearchResponse>(swapi.search.defaults);
@@ -58,7 +63,7 @@ function Search(): JSX.Element {
   }
 
   return (
-    <SearchRoot>
+    <SearchRoot className={className}>
       <SearchField
         ref={fieldReference}
         onChange={debounce(handleQuery, 300)}
