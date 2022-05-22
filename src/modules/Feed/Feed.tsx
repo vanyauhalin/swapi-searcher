@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { swapi } from 'src/plugins';
 import { useMount } from 'src/utils';
 import {
@@ -19,10 +19,8 @@ interface FeedProperties {
 }
 
 function Feed(properties: FeedProperties): JSX.Element {
-  const { id = '', query, scope = '' } = properties;
-  const [currentScope, setCurrentScope] = useState<Scope | ''>(scope);
-  const [previousId, setPreviousId] = useState('');
-  const [currentId, setCurrentId] = useState(id);
+  const { id = '', query, scope = 'films' } = properties;
+  const [currentId, setCurrentId] = useState('');
   const [data, setData] = useState<Data>([]);
   const [
     dataItem,
@@ -30,39 +28,33 @@ function Feed(properties: FeedProperties): JSX.Element {
   ] = useState<DataItem | Record<string, never>>({});
   const [isDetailsVisible, setIsDetailsVisible] = useState(false);
 
-  async function get(): Promise<void> {
-    if (!(currentScope && currentId)) return;
-    if (previousId && previousId === currentId) return;
-    const response = await swapi.rest[currentScope].get({
-      id: currentId,
+  async function get(selectedScope: Scope, selectedId: string): Promise<void> {
+    if (selectedId && selectedId === currentId) return;
+    const response = await swapi.rest[selectedScope].get({
+      id: selectedId,
     });
     setDataItem(response);
-    setPreviousId(currentId);
-  }
-
-  function closeDetails(): void {
-    setIsDetailsVisible(false);
+    setCurrentId(selectedId);
   }
 
   async function showDetails(
     selectedScope: Scope,
     selectedId: string,
   ): Promise<void> {
-    setCurrentScope(selectedScope);
-    setCurrentId(selectedId);
-    await get();
+    await get(selectedScope, selectedId);
     setIsDetailsVisible(true);
   }
 
-  async function search(): Promise<void> {
-    if (!currentScope) return;
-    const response = await swapi.rest[currentScope].search({ query });
-    setData(response.results);
-  }
+  useEffect(() => {
+    async function search(): Promise<void> {
+      const response = await swapi.rest[scope].search({ query });
+      setData(response.results);
+    }
+    search().catch(() => { /* ... */ });
+  }, [query, scope]);
 
   useMount(() => {
-    get().catch(() => { /* ... */ });
-    search().catch(() => { /* ... */ });
+    if (id) showDetails(scope, id).catch(() => { /* ... */ });
   });
 
   return (
@@ -83,7 +75,7 @@ function Feed(properties: FeedProperties): JSX.Element {
         data={dataItem}
         isVisible={isDetailsVisible}
         onClose={() => {
-          closeDetails();
+          setIsDetailsVisible(false);
         }}
       />
     </FeedRoot>
