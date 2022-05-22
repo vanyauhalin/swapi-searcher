@@ -1,25 +1,25 @@
-{
-  "extends": "@vanyauhalin/eslint-config-react",
-  "parserOptions": {
-    "project": "./tsconfig.json"
-  },
-  "overrides": [
-    {
-      "files": "*.d.ts",
-      "rules": {
-        "max-len": [
-          "error",
-          {
-            "code": 120,
-            "ignoreComments": true,
-            "ignoreRegExpLiterals": true,
-            "ignoreStrings": false,
-            "ignoreTemplateLiterals": true,
-            "ignoreUrls": true,
-            "tabWidth": 2
-          }
-        ]
-      }
-    }
-  ]
-}
+// {
+//   "extends": "@vanyauhalin/eslint-config-react",
+//   "parserOptions": {
+//     "project": "./tsconfig.json"
+//   },
+//   "overrides": [
+//     {
+//       "files": "*.d.ts",
+//       "rules": {
+//         "max-len": [
+//           "error",
+//           {
+//             "code": 120,
+//             "ignoreComments": true,
+//             "ignoreRegExpLiterals": true,
+//             "ignoreStrings": false,
+//             "ignoreTemplateLiterals": true,
+//             "ignoreUrls": true,
+//             "tabWidth": 2
+//           }
+//         ]
+//       }
+//     }
+//   ]
+// }

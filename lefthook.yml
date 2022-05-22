@@ -1,11 +1,11 @@
-pre-commit:
-  commands:
-    lint-scripts:
-      glob: "*.{js,json,yaml,yml}"
-      run: eslint {staged_files}
-    lint-styles:
-      glob: "*.css"
-      run: stylelint {staged_files}
+# pre-commit:
+#   commands:
+#     lint-scripts:
+#       glob: "*.{js,json,yaml,yml}"
+#       run: eslint {staged_files}
+#     lint-styles:
+#       glob: "*.css"
+#       run: stylelint {staged_files}
 
 commit-msg:
   commands:

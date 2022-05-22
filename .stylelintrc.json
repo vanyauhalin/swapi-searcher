@@ -1,25 +1,25 @@
-{
-  "extends": "@vanyauhalin/stylelint-config-base",
-  "overrides": [
-    {
-      "files": "**/*.module.css",
-      "rules": {
-        "property-no-unknown": [
-          true,
-          {
-            "ignoreProperties": [
-              "composes"
-            ]
-          }
-        ],
-        "selector-class-pattern": "^[A-Z][a-zA-Z0-9]+$",
-        "value-keyword-case": [
-          "lower",
-          {
-            "ignoreProperties": "composes"
-          }
-        ]
-      }
-    }
-  ]
-}
+// {
+//   "extends": "@vanyauhalin/stylelint-config-base",
+//   "overrides": [
+//     {
+//       "files": "**/*.module.css",
+//       "rules": {
+//         "property-no-unknown": [
+//           true,
+//           {
+//             "ignoreProperties": [
+//               "composes"
+//             ]
+//           }
+//         ],
+//         "selector-class-pattern": "^[A-Z][a-zA-Z0-9]+$",
+//         "value-keyword-case": [
+//           "lower",
+//           {
+//             "ignoreProperties": "composes"
+//           }
+//         ]
+//       }
+//     }
+//   ]
+// }
