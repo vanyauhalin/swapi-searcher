@@ -5,6 +5,7 @@ import type {
   Rest,
   RestMethodResponse,
 } from 'types/swapi';
+import { generate as generateData } from './data';
 
 function extractId(url: string): string {
   const id = url.match(/^.+\/(\d*)\/$/);
@@ -29,24 +30,36 @@ function parse(path: string, context: Record<string, unknown>): string {
   });
 }
 
+async function request(slug: string): Promise<RequestResponse> {
+  try {
+    const response = await fetch(`https://swapi.dev/api/${slug}`);
+    const json = await response.json() as RequestResponse;
+    return json;
+  } catch {
+    // Super unsafe but I have no choice.
+    const data = generateData() as RequestResponse;
+    if (slug.includes('search')) return data;
+    return data.results[0] as RequestResponse;
+  }
+}
+
 function define(
   path: string,
 ): (parameters: RequestParameters) => Promise<RequestResponse> {
   const scope = extractScope(path);
   function modify(response: RestMethodResponse): void {
     response.id = extractId(response.url);
-    response.scope = scope;
+    response.scope = scope as keyof Rest;
   }
   return async (parameters: RequestParameters): Promise<RequestResponse> => {
     const parsed = parse(path, parameters);
-    const response = await fetch(`https://swapi.dev/api/${parsed}`);
-    const json = await response.json() as RequestResponse;
-    if (!json.results) {
-      modify(json);
-    } else if (json.results.length > 0) {
-      for (const item of json.results) modify(item);
+    const response = await request(parsed);
+    if (!response.results) {
+      modify(response);
+    } else if (response.results.length > 0) {
+      for (const item of response.results) modify(item);
     }
-    return json;
+    return response;
   };
 }
 
