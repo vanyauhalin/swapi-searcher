@@ -35,13 +35,12 @@ function SearchOutput(properties: SearchOutputProperties): JSX.Element | null {
 
   useEffect(() => {
     if (!isVisible) return;
-    if (output.current && anchor.current) {
-      const anchorRect = anchor.current.getBoundingClientRect();
-      output.current.style.top = `${anchorRect.bottom}px`;
-      output.current.style.left = `${anchorRect.left}px`;
-      output.current.style.right = `${document.documentElement
-        .clientWidth - anchorRect.right}px`;
-    }
+    if (!(output.current && anchor.current)) return;
+    const anchorRect = anchor.current.getBoundingClientRect();
+    output.current.style.top = `${anchorRect.bottom}px`;
+    output.current.style.left = `${anchorRect.left}px`;
+    output.current.style.right = `${document.documentElement.clientWidth
+      - anchorRect.right}px`;
   }, [anchor, isVisible]);
 
   return (
