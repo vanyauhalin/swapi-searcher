@@ -164,7 +164,7 @@ declare namespace Swapi {
     edited: string;
     id: string;
     name?: string;
-    scope: string;
+    scope: keyof Rest;
     title?: string;
     url: string;
   };
