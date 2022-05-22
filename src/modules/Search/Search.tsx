@@ -74,7 +74,9 @@ function Search(properties: SearchProperties): JSX.Element {
     <SearchRoot
       className={className}
       onSubmit={() => {
-        navigate(`/details?query=${currentQuery}`);
+        let url = `/details?query=${currentQuery}`;
+        if (scope) url += `&scope=${scope}`;
+        navigate(url);
       }}
     >
       <SearchField
