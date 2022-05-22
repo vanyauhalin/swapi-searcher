@@ -16,17 +16,18 @@ type Scope = keyof typeof swapi.rest | '';
 
 interface SearchProperties {
   className?: string;
+  query?: string | undefined;
 }
 
 function Search(properties: SearchProperties): JSX.Element {
-  const { className } = properties;
+  const { className, query } = properties;
   const navigate = useNavigate();
   const fieldReference = useRef<HTMLLabelElement>(null);
   const [scope, setScope] = useState<Scope>('');
   const [output, setOutput] = useState<SearchResponse>(swapi.search.defaults);
   const [isOutputVisible, setIsOutputVisible] = useState(false);
   const [previousQuery, setPreviousQuery] = useState('');
-  const [currentQuery, setCurrentQuery] = useState('');
+  const [currentQuery, setCurrentQuery] = useState(query || '');
 
   function resetOutput(): void {
     setCurrentQuery('');
@@ -39,21 +40,23 @@ function Search(properties: SearchProperties): JSX.Element {
     resetOutput();
   };
 
-  async function search(query: string): Promise<void> {
+  async function search(passedQuery: string): Promise<void> {
     const instance = scope ? swapi.rest[scope] : swapi;
-    const searched = await instance.search({ query });
+    const searched = await instance.search({
+      query: passedQuery,
+    });
     if (searched.results.length === 0) return;
-    setCurrentQuery(query);
+    setCurrentQuery(passedQuery);
     setOutput(searched);
     setIsOutputVisible(true);
   }
 
-  async function handleQuery(query: string): Promise<void> {
+  async function handleQuery(passedQuery: string): Promise<void> {
     const hasItems = output.results.length > 0;
-    const trimmed = query.trim();
+    const trimmed = passedQuery.trim();
 
     if (
-      (previousQuery === trimmed && query.match(/\s*$/)?.[0]?.length !== 0)
+      (previousQuery === trimmed && passedQuery.match(/\s*$/)?.[0]?.length !== 0)
       || (previousQuery && !hasItems && trimmed.length > previousQuery.length)
       || (!previousQuery && hasItems && !trimmed)
     ) return;
@@ -75,6 +78,7 @@ function Search(properties: SearchProperties): JSX.Element {
       }}
     >
       <SearchField
+        query={query || ''}
         ref={fieldReference}
         onChange={debounce(handleQuery, 300)}
         onReset={resetScope}

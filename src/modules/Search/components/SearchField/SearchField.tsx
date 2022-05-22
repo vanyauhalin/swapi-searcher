@@ -8,12 +8,13 @@ import { SearchIcon, XIcon } from 'src/components';
 import styles from './SearchField.module.css';
 
 interface SearchFieldProperties {
+  query?: string;
   onChange(query: string): void;
   onReset(): void;
 }
 
 const SearchField = forwardRef<HTMLLabelElement, SearchFieldProperties>(
-  ({ onChange, onReset }, reference) => {
+  ({ query = '', onChange, onReset }, reference) => {
     const input = useRef<HTMLInputElement>(null);
     const [isActive, setIsActive] = useState(false);
 
@@ -30,11 +31,12 @@ const SearchField = forwardRef<HTMLLabelElement, SearchFieldProperties>(
       }
       document.addEventListener('keyup', keyup);
       document.addEventListener('keydown', keydown);
+      if (input.current) input.current.value = query;
       return () => {
         document.removeEventListener('keyup', keyup);
         document.removeEventListener('keydown', keydown);
       };
-    }, []);
+    }, [query]);
 
     return (
       <label
@@ -79,6 +81,10 @@ const SearchField = forwardRef<HTMLLabelElement, SearchFieldProperties>(
     );
   },
 );
+
+SearchField.defaultProps = {
+  query: '',
+};
 
 export {
   SearchField,
