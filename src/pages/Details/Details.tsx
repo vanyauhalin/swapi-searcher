@@ -1,3 +1,4 @@
+import { useLocation } from 'react-router';
 import {
   Layout,
   LayoutFooter,
@@ -5,18 +6,35 @@ import {
   LayoutMain,
   Logo,
 } from 'src/components';
-import { Search } from 'src/modules';
+import { Feed, Search } from 'src/modules';
+import type { swapi } from 'src/plugins';
+import { extractParameters } from 'src/utils';
 import styles from './Details.module.css';
 
 function Details(): JSX.Element {
+  const location = useLocation();
+  const { id, query, scope } = extractParameters<{
+    scope: keyof typeof swapi.rest;
+  }>(location.search);
   return (
     <Layout className={styles.Details}>
       <LayoutHeader className={styles.DetailsHeader}>
         <Logo />
-        <Search className={styles.DetailsSearch} />
+        <Search
+          className={styles.DetailsSearch}
+          query={query}
+        />
       </LayoutHeader>
-      <LayoutMain>
-        main
+      <LayoutMain className={styles.DetailsMain}>
+        {query
+          ? (
+            <Feed
+              id={id}
+              query={query}
+              scope={scope}
+            />
+          )
+          : 404}
       </LayoutMain>
       <LayoutFooter />
     </Layout>
