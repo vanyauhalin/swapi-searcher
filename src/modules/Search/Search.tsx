@@ -24,8 +24,10 @@ function Search(properties: SearchProperties): JSX.Element {
   const [output, setOutput] = useState<SearchResponse>(swapi.search.defaults);
   const [isOutputVisible, setIsOutputVisible] = useState(false);
   const [previousQuery, setPreviousQuery] = useState('');
+  const [currentQuery, setCurrentQuery] = useState('');
 
   function resetOutput(): void {
+    setCurrentQuery('');
     setOutput(swapi.search.defaults);
     setIsOutputVisible(false);
   }
@@ -39,6 +41,7 @@ function Search(properties: SearchProperties): JSX.Element {
     const instance = scope ? swapi.rest[scope] : swapi;
     const searched = await instance.search({ query });
     if (searched.results.length === 0) return;
+    setCurrentQuery(query);
     setOutput(searched);
     setIsOutputVisible(true);
   }
@@ -90,7 +93,10 @@ function Search(properties: SearchProperties): JSX.Element {
           <SearchOutputItem
             key={`${item.scope}${item.id}`}
             label={item.name || item.title || ''}
-            to={`/details/${item.scope}/${item.id}`}
+            to={'/details'
+              + `?query=${currentQuery}`
+              + `&scope=${item.scope}`
+              + `&id=${item.id}`}
           />
         ))}
       </SearchOutput>
