@@ -1,0 +1,28 @@
+.FeedDetails {
+  background-color: hsl(0 0% 0% / .25);
+  bottom: 0;
+  left: 0;
+  position: absolute;
+  right: 0;
+  top: 0;
+}
+
+.FeedDetailsInner {
+  background-color: hsl(0 0% 100%);
+  left: 50%;
+  padding: 40px;
+  position: absolute;
+  top: 50%;
+  transform: translateX(-50%) translateY(-50%);
+  width: 400px;
+}
+
+.FeedDetailsData {
+  font-size: 1em;
+  line-height: 1.5em;
+  margin: 0 0 40px;
+}
+
+.FeedDetailsClose {
+  width: 100%;
+}
