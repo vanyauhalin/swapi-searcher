@@ -6,7 +6,7 @@
 pnpm i
 # If you need linters, you should:
 # 1. Setup GitHub token (see docs).
-# 2. Uncomment `.npmrc`.
+# 2. Uncomment `.npmrc`, `.eslintrc.json`, `.stylelintrc.json`, `lefthook.yml`.
 # 3. Install configs.
 pnpm i --save-dev \
   @vanyauhalin/eslint-config-react \
