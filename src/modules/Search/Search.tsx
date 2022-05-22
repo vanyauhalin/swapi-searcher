@@ -1,4 +1,5 @@
 import { useRef, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { swapi } from 'src/plugins';
 import { debounce } from 'src/utils';
 import type { SearchResponse } from 'types/swapi';
@@ -19,6 +20,7 @@ interface SearchProperties {
 
 function Search(properties: SearchProperties): JSX.Element {
   const { className } = properties;
+  const navigate = useNavigate();
   const fieldReference = useRef<HTMLLabelElement>(null);
   const [scope, setScope] = useState<Scope>('');
   const [output, setOutput] = useState<SearchResponse>(swapi.search.defaults);
@@ -66,7 +68,12 @@ function Search(properties: SearchProperties): JSX.Element {
   }
 
   return (
-    <SearchRoot className={className}>
+    <SearchRoot
+      className={className}
+      onSubmit={() => {
+        navigate(`/details?query=${currentQuery}`);
+      }}
+    >
       <SearchField
         ref={fieldReference}
         onChange={debounce(handleQuery, 300)}

@@ -1,13 +1,21 @@
-import type { ComponentProps, ReactElement } from 'react';
+import type { ComponentProps, ReactElement, SyntheticEvent } from 'react';
 import { createElement } from 'react';
 import { merge } from 'src/utils';
 import styles from './SearchRoot.module.css';
 
-function SearchRoot(properties: ComponentProps<'form'>): ReactElement {
-  const { className, children } = properties;
+interface SearchRootProperties extends ComponentProps<'form'> {
+  onSubmit(this: void): void;
+}
+
+function SearchRoot(properties: SearchRootProperties): ReactElement {
+  const { className, children, onSubmit } = properties;
   return createElement('form', {
     ...properties,
     className: merge(styles.SearchRoot, className),
+    onSubmit(event: SyntheticEvent) {
+      event.preventDefault();
+      onSubmit();
+    },
   }, children);
 }
 
