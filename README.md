@@ -1,3 +1,20 @@
+# SWAPI searcher
+
+## Install
+
+```sh
+pnpm i
+# If you need linters, you should:
+# 1. Setup GitHub token (see docs).
+# 2. Uncomment `.npmrc`.
+# 3. Install configs.
+pnpm i --save-dev \
+  @vanyauhalin/eslint-config-react \
+  @vanyauhalin/stylelint-config-base
+```
+
+## About
+
 Create a react application that will have a Home page with a Search panel and a Detail page. On the Detail page should be a search field.
 
 The interface should be similar to google.com.
