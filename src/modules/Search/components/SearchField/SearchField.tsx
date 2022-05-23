@@ -14,7 +14,7 @@ interface SearchFieldProperties {
 }
 
 const SearchField = forwardRef<HTMLLabelElement, SearchFieldProperties>(
-  ({ query = '', onChange, onReset }, reference) => {
+  ({ onChange, onReset, query = '' }, reference) => {
     const input = useRef<HTMLInputElement>(null);
     const [isActive, setIsActive] = useState(false);
 

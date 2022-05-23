@@ -8,7 +8,7 @@ interface SearchRootProperties extends ComponentProps<'form'> {
 }
 
 function SearchRoot(properties: SearchRootProperties): ReactElement {
-  const { className, children, onSubmit } = properties;
+  const { children, className, onSubmit } = properties;
   return createElement('form', {
     ...properties,
     className: merge(styles.SearchRoot, className),

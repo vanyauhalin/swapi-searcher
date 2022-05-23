@@ -4,7 +4,7 @@ import { merge } from 'src/utils';
 import styles from './Layout.module.css';
 
 function LayoutFooter(properties: ComponentProps<'footer'>): ReactElement {
-  const { className, children } = properties;
+  const { children, className } = properties;
   return createElement('footer', {
     ...properties,
     className: merge(styles.LayoutFooter, className),

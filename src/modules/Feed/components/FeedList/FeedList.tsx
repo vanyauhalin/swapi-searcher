@@ -37,6 +37,6 @@ function FeedList(properties: FeedListProperties): JSX.Element {
 }
 
 export {
-  FeedListItem,
   FeedList,
+  FeedListItem,
 };
