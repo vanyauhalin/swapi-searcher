@@ -21,6 +21,7 @@ const swapi = (() => {
   };
 })();
 
+export * from './hooks';
 export {
   swapi,
 };

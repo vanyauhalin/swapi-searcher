@@ -1,5 +1,6 @@
-import { useEffect, useState } from 'react';
-import { swapi } from 'src/plugins';
+import { useState } from 'react';
+import type { swapi } from 'src/plugins';
+import { useData, useDataItem } from 'src/plugins';
 import { useMount } from 'src/utils';
 import {
   FeedDetails,
@@ -9,8 +10,6 @@ import {
 } from './components';
 
 type Scope = keyof typeof swapi.rest;
-type Data = Awaited<ReturnType<typeof swapi.rest[Scope]['search']>>['results'];
-type DataItem = Data[0];
 
 interface FeedProperties {
   id?: string | undefined;
@@ -20,38 +19,17 @@ interface FeedProperties {
 
 function Feed(properties: FeedProperties): JSX.Element {
   const { id = '', query, scope = 'films' } = properties;
-  const [currentId, setCurrentId] = useState('');
-  const [data, setData] = useState<Data>([]);
-  const [
-    dataItem,
-    setDataItem,
-  ] = useState<DataItem | Record<string, never>>({});
+  const data = useData(query, scope);
+  const [dataItem, fetchDataItem] = useDataItem();
   const [isDetailsVisible, setIsDetailsVisible] = useState(false);
-
-  async function get(selectedScope: Scope, selectedId: string): Promise<void> {
-    if (selectedId && selectedId === currentId) return;
-    const response = await swapi.rest[selectedScope].get({
-      id: selectedId,
-    });
-    setDataItem(response);
-    setCurrentId(selectedId);
-  }
 
   async function showDetails(
     selectedScope: Scope,
     selectedId: string,
   ): Promise<void> {
-    await get(selectedScope, selectedId);
+    await fetchDataItem(selectedScope, selectedId);
     setIsDetailsVisible(true);
   }
-
-  useEffect(() => {
-    async function search(): Promise<void> {
-      const response = await swapi.rest[scope].search({ query });
-      setData(response.results);
-    }
-    search().catch(() => { /* ... */ });
-  }, [query, scope]);
 
   useMount(() => {
     if (id) showDetails(scope, id).catch(() => { /* ... */ });
